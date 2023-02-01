@@ -2,6 +2,9 @@ name: 'Test Actions'
 description: 'Test Build Deploy projects'
 author: 'Nishant Vaity'
 inputs: 
+  branch:
+    description: 'current active branch'
+    default: 'master-2.x'
   php:
     description: 'version of php to use 7.1, 7.2 or 7.4'
     default: 'auto'
