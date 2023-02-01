@@ -122,17 +122,17 @@ RUN curl -LO https://getcomposer.org/composer-stable.phar \
     && mv ./composer.phar /usr/local/bin/composer\
     && php7.2 /usr/local/bin/composer self-update --2
 
-COPY LICENSE README.md /
+# COPY LICENSE README.md /
 COPY scripts /opt/scripts
-COPY config /opt/config
+# COPY config /opt/config
 COPY entrypoint.sh /entrypoint.sh
 
 RUN cd /opt/config/php-deployer/ &&  /usr/bin/php7.4 /usr/local/bin/composer install
 
-RUN  mkdir /opt/magerun/ \
-    && cd /opt/magerun/ \
-    && curl -sS -O https://files.magerun.net/n98-magerun2-latest.phar \
-    && curl -sS -o n98-magerun2-latest.phar.sha256 https://files.magerun.net/sha256.php?file=n98-magerun2-latest.phar \
-    && shasum -a 256 -c n98-magerun2-latest.phar.sha256
+# RUN  mkdir /opt/magerun/ \
+#     && cd /opt/magerun/ \
+#     && curl -sS -O https://files.magerun.net/n98-magerun2-latest.phar \
+#     && curl -sS -o n98-magerun2-latest.phar.sha256 https://files.magerun.net/sha256.php?file=n98-magerun2-latest.phar \
+#     && shasum -a 256 -c n98-magerun2-latest.phar.sha256
 
 ENTRYPOINT ["/entrypoint.sh"]
