@@ -126,6 +126,7 @@ RUN curl -LO https://getcomposer.org/composer-stable.phar \
 COPY scripts /opt/scripts
 # COPY config /opt/config
 COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x entrypoint.sh
 
 # RUN cd /opt/config/php-deployer/ &&  /usr/bin/php7.4 /usr/local/bin/composer install
 
