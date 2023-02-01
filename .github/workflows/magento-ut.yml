@@ -1,0 +1,46 @@
+name: m2-actions-test
+
+on: [push, pull_request]
+
+jobs:
+  magento2-build:
+    runs-on: ubuntu-latest
+    name: 'Magento Unit Tests'
+    services:
+      mysql:
+        image: docker://mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: magento
+          MYSQL_DATABASE: magento
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+      elasticsearch:
+        image: docker://elasticsearch:7.17.0
+        ports:
+          - 9200:9200
+        options: -e="discovery.type=single-node" --health-cmd="curl http://localhost:9200/_cluster/health" --health-interval=10s --health-timeout=5s --health-retries=10
+    steps:
+    - uses: actions/checkout@v2  
+    
+    - name: 'Install fresh magento repo'
+      #if: ${{false}}
+      uses: enishant/learning-actions-test@main
+      env:
+        COMPOSER_AUTH: ${{secrets.COMPOSER_AUTH}}
+      with:
+        process: 'create-project'
+        magento_version: 2.4.5-p1 
+        no_push: 1   ## add this arg to not push to the repo ideal for quick test on specific version
+        branch: ${{ github.head_ref || github.ref_name }} 
+
+#     - name: 'Launch Magento 2 unit test specific module i.e razorpay/magento'
+#       if: always()
+#       uses: enishant/learning-actions-test@main
+#       env:
+#         COMPOSER_AUTH: ${{secrets.COMPOSER_AUTH}}
+#       with:
+#         process: 'unit-test' 
+#         elasticsearch: 1
+#         unit_test_subset_path: 'vendor/razorpay/magento/Test/Unit'
+
