@@ -39,7 +39,15 @@ then
   [ -f app/etc/config.php ] && cp app/etc/config.php app/etc/config.php.orig
 fi
 
-bash /opt/config/utils/pagebuilder-compatibility-checker.sh
+# bash /opt/config/utils/pagebuilder-compatibility-checker.sh
+
+set -e
+
+if [ ! -f app/etc/config.php ]
+then
+  echo "Generating config.php if does not exist | fix for magento/magento2-page-builder#730"
+  bin/magento module:enable --all
+fi
 
 if [ $INPUT_ELASTICSUITE = 1 ]
 then
