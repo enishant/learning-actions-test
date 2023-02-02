@@ -25,7 +25,8 @@ jobs:
     
     - name: 'Install fresh magento repo'
       #if: ${{false}}
-      uses: enishant/learning-actions-test@main
+      # uses: razorpay/razorpay-magento@master-2.x
+      uses: razorpay/razorpay-magento@ut-feat-github-actions
       env:
         COMPOSER_AUTH: ${{secrets.COMPOSER_AUTH}}
       with:
@@ -36,7 +37,8 @@ jobs:
 
     - name: 'Launch Magento 2 unit test specific module i.e razorpay/magento'
       if: always()
-      uses: enishant/learning-actions-test@main
+      # uses: razorpay/razorpay-magento@master-2.x
+      uses: razorpay/razorpay-magento@ut-feat-github-actions
       env:
         COMPOSER_AUTH: ${{secrets.COMPOSER_AUTH}}
       with:
