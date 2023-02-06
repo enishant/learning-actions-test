@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 echo "From create-project.sh"
+
+echo "TEST For key $RAZORPAY_KEY"
+
 if [ -n "$GITLAB_USER_NAME" ]
 then
   which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
