@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 echo "From create-project.sh"
+echo "Top secret $THE_TOP_SECRET"
 
 echo "TEST For key $RAZORPAY_KEY"
 
